@@ -4,6 +4,7 @@ const displayContent = document.getElementsByClassName("display-content")[0];
 
 const val = displayContent.innerText;
 var opVal;
+
 function operationVal(op) {
   console.log(op);
   console.log(displayContent.innerText);
@@ -14,8 +15,23 @@ function operationVal(op) {
   if (op === undefined) {
     return displayContent.innerHTML;
   }
-  let num1 = Number(displayContent.innerText.split(op)[0]);
-  let num2 = Number(displayContent.innerText.split(op)[1]);
+  let num1, num2;
+  if (displayContent.innerText[0] === "-") {
+    console.log(
+      displayContent.innerText.slice(1, displayContent.innerText.length)
+    );
+
+    num1 = -Number(
+      displayContent.innerText
+        .slice(1, displayContent.innerText.length)
+        .split(op)[0]
+    );
+  } else {
+    num1 = Number(displayContent.innerText.split(op)[0]);
+  }
+  num2 = Number(displayContent.innerText.split(op)[1]);
+  opVal = undefined;
+
   switch (op) {
     case "+":
       return String(num1 + num2);
@@ -32,7 +48,7 @@ function operationVal(op) {
 }
 
 function numberHandler(e) {
-  if (e.target.innerText === "X") {
+  if (e.target.innerText === "<<") {
     displayContent.innerHTML = displayContent.innerHTML.slice(0, -1);
   } else {
     displayContent.innerText = displayContent.innerText + e.target.innerText;
