@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: white;
   color: white;
   display: flex;
   justify-content: center;
@@ -33,6 +33,14 @@ body {
   bottom: 10px;
   right: 10px;
   font-size: 10ch;
+
+  word-wrap: break-word; /* Allows long words to be broken and wrap onto the next line */
+  white-space: normal; /* Ensures the text will wrap normally */
+  overflow-wrap: break-word; /* Ensures the text will break and wrap within the element */
+  width: 100%; /* Ensures the content takes the full width of its container */
+  box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+  height: 100px; /* Sets a fixed height for the content area */
+  overflow: auto; /* Makes the content area scrollable if content overflows */
 }
 
 .numbers {
