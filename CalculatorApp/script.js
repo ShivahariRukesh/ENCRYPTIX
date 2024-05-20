@@ -9,7 +9,7 @@ function operationVal(op) {
   console.log(op);
   console.log(displayContent.innerText);
   if (displayContent.innerText === "") {
-    return "";
+    return displayContent.innerText;
   }
 
   if (op === undefined) {
