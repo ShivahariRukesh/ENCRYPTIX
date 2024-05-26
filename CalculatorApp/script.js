@@ -4,10 +4,11 @@ const displayContent = document.getElementsByClassName("display-content")[0];
 
 const val = displayContent.innerText;
 var opVal;
+const operatorsAll = ["+", "-", "*", "/"];
 
 function operationVal(op) {
   console.log(op);
-  console.log(displayContent.innerText);
+  // console.log(displayContent.innerText);
   if (displayContent.innerText === "") {
     return displayContent.innerText;
   }
@@ -16,20 +17,30 @@ function operationVal(op) {
     return displayContent.innerHTML;
   }
   let num1, num2;
+
   if (displayContent.innerText[0] === "-") {
-    console.log(
-      displayContent.innerText.slice(1, displayContent.innerText.length)
-    );
+    if (
+      !displayContent.innerText
+        .slice(1, displayContent.innerText.length)
+        .includes(op)
+    )
+      return displayContent.innerText;
 
     num1 = -Number(
       displayContent.innerText
         .slice(1, displayContent.innerText.length)
         .split(op)[0]
     );
+    num2 = Number(
+      displayContent.innerText
+        .slice(1, displayContent.innerText.length)
+        .split(op)[1]
+    );
   } else {
     num1 = Number(displayContent.innerText.split(op)[0]);
+    num2 = Number(displayContent.innerText.split(op)[1]);
+    console.log(num1);
   }
-  num2 = Number(displayContent.innerText.split(op)[1]);
   opVal = undefined;
 
   switch (op) {
@@ -50,6 +61,25 @@ function operationVal(op) {
 function numberHandler(e) {
   if (e.target.innerText === "<<") {
     displayContent.innerHTML = displayContent.innerHTML.slice(0, -1);
+
+    //Checking if operator is deleted or not, if it is then return undefined opVAl
+    if (displayContent.innerText[0] === "-") {
+      if (
+        displayContent.innerText
+          .slice(1, displayContent.innerText.length)
+          .includes(opVal)
+      ) {
+        opVal = opVal;
+      } else {
+        opVal = undefined;
+      }
+    } else {
+      if (displayContent.innerText.includes(opVal)) {
+        opVal = opVal;
+      } else {
+        opVal = undefined;
+      }
+    }
   } else {
     displayContent.innerText = displayContent.innerText + e.target.innerText;
   }
@@ -57,11 +87,19 @@ function numberHandler(e) {
 
 const operationHandler = (e) => {
   let enteredVal = e.target.innerText;
-  if (enteredVal)
-    if (enteredVal !== "AC" && enteredVal !== "=") {
-      opVal = enteredVal;
-      displayContent.innerText = displayContent.innerText + e.target.innerText;
+
+  if (enteredVal !== "AC" && enteredVal !== "=") {
+    const hasOperators = operatorsAll.some((op) =>
+      displayContent.innerText.includes(op)
+    );
+
+    if (hasOperators) {
+      displayContent.innerText = operationVal(opVal);
     }
+
+    displayContent.innerText = displayContent.innerText + e.target.innerText;
+    opVal = enteredVal;
+  }
   if (enteredVal === "=") {
     displayContent.innerText = operationVal(opVal);
   }
@@ -77,7 +115,14 @@ numButt.forEach((butt) => {
 });
 
 opButt.forEach((butt) => {
-  butt.addEventListener("click", (e) => {
-    operationHandler(e);
+  const operatorFormat = operatorsAll.every((ops) => {
+    return displayContent.innerText[displayContent.innerText.length] === ops;
   });
+  if (operatorFormat || displayContent.innerText === "") {
+    console.log(butt);
+  } else {
+    butt.addEventListener("click", (e) => {
+      operationHandler(e);
+    });
+  }
 });

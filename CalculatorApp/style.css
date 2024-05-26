@@ -10,7 +10,8 @@ body {
 
 .main-container {
   display: grid;
-  border: 2px solid red;
+  background-color: rgb(71, 78, 156);
+  border: 7px solid black;
   border-radius: 20px;
   height: 900px;
   width: 550px;
@@ -33,7 +34,7 @@ body {
   bottom: 10px;
   right: 10px;
   font-size: 7ch;
-
+  padding: 0px 20px;
   word-wrap: break-word;
   white-space: normal;
   overflow-wrap: break-word;
@@ -49,8 +50,9 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-
-  background-color: green;
+  border: 2px solid black;
+  border-radius: 1cap;
+  background-color: rgb(74, 110, 112);
 }
 
 button.num {
@@ -66,7 +68,8 @@ button.num {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   justify-items: center;
-  background-color: rgb(41, 28, 211);
+  background-color: rgb(99, 92, 175);
+  padding: 0px 5px;
 }
 
 .op {
