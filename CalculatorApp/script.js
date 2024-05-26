@@ -89,6 +89,19 @@ const operationHandler = (e) => {
   let enteredVal = e.target.innerText;
 
   if (enteredVal !== "AC" && enteredVal !== "=") {
+    if (displayContent.innerText === "") {
+      return;
+    }
+    const operatorFormat = operatorsAll.some((ops) => {
+      console.log(
+        displayContent.innerText[displayContent.innerText.length - 1]
+      );
+      return (
+        displayContent.innerText[displayContent.innerText.length - 1] === ops
+      );
+    });
+    console.log(operatorFormat);
+    if (operatorFormat) return;
     const hasOperators = operatorsAll.some((op) =>
       displayContent.innerText.includes(op)
     );
@@ -115,14 +128,7 @@ numButt.forEach((butt) => {
 });
 
 opButt.forEach((butt) => {
-  const operatorFormat = operatorsAll.every((ops) => {
-    return displayContent.innerText[displayContent.innerText.length] === ops;
+  butt.addEventListener("click", (e) => {
+    operationHandler(e);
   });
-  if (operatorFormat || displayContent.innerText === "") {
-    console.log(butt);
-  } else {
-    butt.addEventListener("click", (e) => {
-      operationHandler(e);
-    });
-  }
 });
